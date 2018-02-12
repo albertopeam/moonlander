@@ -1,5 +1,6 @@
 package com.github.albertopeam
 
+import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
@@ -7,6 +8,9 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.math.Rectangle
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+
+
 
 
 /**
@@ -14,12 +18,16 @@ import com.badlogic.gdx.math.Rectangle
  */
 class MoonLanderGame : Game() {
 
+    private var shapeRenderer: ShapeRenderer? = null
     private var batch: SpriteBatch? = null
     private var rocketTexture: Texture? = null
     private var rocketRect: Rectangle? = null
     private var camera: OrthographicCamera? = null
+    private var sky:Sky? = null
 
     override fun create() {
+        shapeRenderer = ShapeRenderer()
+        sky = Sky(shapeRenderer!!)
         batch = SpriteBatch()
         rocketTexture = Texture("RocketDouble1.png")
         camera = OrthographicCamera()
@@ -41,9 +49,12 @@ class MoonLanderGame : Game() {
         batch?.begin()
         batch?.draw(rocketTexture, 0f, 0f, Configuration.rocketWidth, Configuration.rocketHeight)
         batch?.end()
+
+        sky!!.update()
     }
 
     override fun dispose() {
+        shapeRenderer?.dispose()
         batch?.dispose()
         rocketTexture?.dispose()
     }
