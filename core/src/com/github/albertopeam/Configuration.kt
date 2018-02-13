@@ -9,6 +9,6 @@ class Configuration{
         val width = 800f
         val rocketHeight = 24f
         val rocketWidth = 58f
-        val starDensity = 0.01f
+        val starDensity = 0.0015f
     }
 }

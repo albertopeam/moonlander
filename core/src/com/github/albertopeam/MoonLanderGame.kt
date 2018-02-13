@@ -20,7 +20,6 @@ class MoonLanderGame : Game() {
 
     private var shapeRenderer: ShapeRenderer? = null
     private var batch: SpriteBatch? = null
-    private var rocketTexture: Texture? = null
     private var rocketRect: Rectangle? = null
     private var camera: OrthographicCamera? = null
     private var sky:Sky? = null
@@ -29,7 +28,6 @@ class MoonLanderGame : Game() {
         shapeRenderer = ShapeRenderer()
         sky = Sky(shapeRenderer!!)
         batch = SpriteBatch()
-        rocketTexture = Texture("RocketDouble1.png")
         camera = OrthographicCamera()
         camera?.setToOrtho(false, Configuration.width, Configuration.heigth)
         rocketRect = Rectangle()
@@ -46,9 +44,6 @@ class MoonLanderGame : Game() {
         camera?.update()
         batch?.projectionMatrix = camera?.combined
 
-        batch?.begin()
-        batch?.draw(rocketTexture, 0f, 0f, Configuration.rocketWidth, Configuration.rocketHeight)
-        batch?.end()
 
         sky!!.update()
     }
@@ -56,6 +51,5 @@ class MoonLanderGame : Game() {
     override fun dispose() {
         shapeRenderer?.dispose()
         batch?.dispose()
-        rocketTexture?.dispose()
     }
 }

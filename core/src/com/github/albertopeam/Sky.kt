@@ -1,9 +1,11 @@
 package com.github.albertopeam
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.math.Vector3
 import java.util.*
 
 
@@ -12,25 +14,27 @@ import java.util.*
  */
 class Sky(private val shapeRenderer: ShapeRenderer) {
 
-    var stars:MutableList<Vector2>? = null
+    private var stars:MutableList<Vector3>? = null
+    private val random = Random()
 
     init {
         val screenWidth = Gdx.graphics.getWidth()
         val screenHeight = Gdx.graphics.getHeight()
         val starCount:Int = (screenHeight * screenWidth * Configuration.starDensity).toInt()
         stars = mutableListOf()
-        val random = Random()
         for (i in 0..starCount){
             val x:Float = random.nextInt(screenWidth).toFloat()
             val y:Float = random.nextInt(screenHeight).toFloat()
-            stars!!.add(Vector2(x, y))
+            val radius:Float = random.nextInt(3).toFloat()
+            stars!!.add(Vector3(x, y, radius))
         }
     }
 
     fun update(){
-        shapeRenderer.begin(ShapeType.Point)
+        shapeRenderer.begin(ShapeType.Filled)
+        shapeRenderer.color = Color.WHITE
         for (star in stars!!) {
-            shapeRenderer.point(star.x, star.y, 0F)
+            shapeRenderer.circle(star.x, star.y, star.z)
         }
         shapeRenderer.end()
     }
