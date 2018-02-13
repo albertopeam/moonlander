@@ -18,6 +18,11 @@ class Sky(private val shapeRenderer: ShapeRenderer) {
     private val random = Random()
 
     init {
+        resize()
+    }
+
+    //TODO: improve resize behaviour,it adds random stars...
+    fun resize(){
         val screenWidth = Gdx.graphics.getWidth()
         val screenHeight = Gdx.graphics.getHeight()
         val starCount:Int = (screenHeight * screenWidth * Configuration.starDensity).toInt()

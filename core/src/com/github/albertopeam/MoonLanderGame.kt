@@ -19,17 +19,20 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 class MoonLanderGame : Game() {
 
     private var shapeRenderer: ShapeRenderer? = null
-    private var batch: SpriteBatch? = null
-    private var rocketRect: Rectangle? = null
     private var camera: OrthographicCamera? = null
     private var sky:Sky? = null
 
+    private var batch: SpriteBatch? = null
+    private var rocketRect: Rectangle? = null
+
+
     override fun create() {
         shapeRenderer = ShapeRenderer()
-        sky = Sky(shapeRenderer!!)
-        batch = SpriteBatch()
         camera = OrthographicCamera()
-        camera?.setToOrtho(false, Configuration.width, Configuration.heigth)
+        sky = Sky(shapeRenderer!!)
+
+
+        batch = SpriteBatch()
         rocketRect = Rectangle()
         rocketRect?.x = 800f / 2 - 64 / 2
         rocketRect?.y = 20f
@@ -37,13 +40,20 @@ class MoonLanderGame : Game() {
         rocketRect?.height = Configuration.rocketHeight
     }
 
+    override fun resize(width: Int, height: Int) {
+        val aspectRatio = 1F * width / height
+        camera?.setToOrtho(false, width.toFloat(), height.toFloat())
+
+        sky!!.resize()
+    }
+
     override fun render() {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         camera?.update()
-        batch?.projectionMatrix = camera?.combined
-
+        shapeRenderer?.projectionMatrix = camera?.combined
+        //batch?.projectionMatrix = camera?.combined
 
         sky!!.update()
     }
