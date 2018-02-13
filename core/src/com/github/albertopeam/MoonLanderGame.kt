@@ -29,8 +29,11 @@ class MoonLanderGame : Game() {
     override fun create() {
         shapeRenderer = ShapeRenderer()
         camera = OrthographicCamera()
-        sky = Sky(shapeRenderer!!)
-
+        sky = Sky(shapeRenderer!!,
+                Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight(),
+                Configuration.starDensity,
+                Configuration.moonRadius)
 
         batch = SpriteBatch()
         rocketRect = Rectangle()
@@ -43,8 +46,7 @@ class MoonLanderGame : Game() {
     override fun resize(width: Int, height: Int) {
         val aspectRatio = 1F * width / height
         camera?.setToOrtho(false, width.toFloat(), height.toFloat())
-
-        sky!!.resize()
+        sky!!.resize(width, height)
     }
 
     override fun render() {

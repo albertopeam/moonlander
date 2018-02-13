@@ -5,10 +5,9 @@ package com.github.albertopeam
  */
 class Configuration{
     companion object {
-        val heigth = 400f
-        val width = 800f
         val rocketHeight = 24f
         val rocketWidth = 58f
         val starDensity = 0.0015f
+        val moonRadius = 50F
     }
 }
