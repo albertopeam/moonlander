@@ -9,5 +9,6 @@ class Configuration{
         val rocketWidth = 58f
         val starDensity = 0.0015f
         val moonRadius = 50F
+        val rotationSpeed = 0.5f
     }
 }
